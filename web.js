@@ -26,7 +26,14 @@ server.listen(port);
 // Using websockets on Heroku
 // https://devcenter.heroku.com/articles/node-websockets
 // But for now we're still using socket.io since it supports fallback mechanism :)
+// http://stackoverflow.com/questions/14175051/unexpected-response-code-503-in-chrome-perhaps-having-to-do-with-socket-io-o
+// https://devcenter.heroku.com/articles/error-codes
 var io = socket.listen(server);
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 30);
+});
+
 io.sockets.on('connection', function(socket){
     console.log("We've got a connection");
 });
