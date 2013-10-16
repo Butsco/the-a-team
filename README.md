@@ -1,7 +1,7 @@
 the-a-team
 ==========
 
-An auction site of Mobile Vikings developers
+An auction site of Mobile Vikings developers: http://the-a-team.herokuapp.com/
 
 NodeJS on Heroku
 ================
