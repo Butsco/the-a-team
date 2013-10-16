@@ -1,4 +1,6 @@
 var express = require("express");
+var socket = require('socket.io');
+var http = require('http');
 var eco = require('eco');
 var fs = require('fs');
 var path = require('path');
@@ -18,8 +20,13 @@ app.use("/static", express.static(__dirname + "/static"));
 
 
 var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
+var server = http.createServer(app);
+server.listen(port);
+
+// Using websockets on Heroku
+// https://devcenter.heroku.com/articles/node-websockets
+// But for now we're still using socket.io since it supports fallback mechanism :)
+var io = socket.listen(server);
+io.sockets.on('connection', function(socket){
+    console.log("We've got a connection");
 });
-
-
